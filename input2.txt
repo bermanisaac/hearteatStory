@@ -1,0 +1,63 @@
+1. Dawn: Good morning, Nyx! {2} 5
+5. Enter: {Dawn, Nyx} 2
+2. Nyx: Hi! <3 {2001, 2002, 2003}
+2001. Dawn: Just remember to clean up after yourself, please? {3} 4
+2002. Dawn: What are you doing??? {301} 8
+2003. Dawn: Don’t you think it’s a bit early for this? {3} 2
+3. Nyx: I saw her and I just had to, you know? Her HEART looked so delicious. {3001, 3002, 3003}
+301. Nyx: I’m eating Lilly Valley’s HEART, silly! {3001, 3012, 3013}
+3001. Dawn: ...Right. {4} 1
+3002. Dawn: *sigh* Every morning, Nyx. Every morning. {5} 2
+3003. Dawn: Did you at least kill her first this time? {6} 8
+3012. Dawn: Aw...  she was cute...  {7} 2
+3013. Dawn: Is it tasty? {8} 5
+4. Nyx: I’m done now! Time for the drain cleaner <3. {9}
+5. Nyx: I can’t help it, our school is just full of cute girls who aren’t quite as cute as you UwU. {9}
+6. Nyx: Of course. I’m not mean :( {9}
+7. Nyx: Not as cute as you… {9}
+8. Nyx: Yeah! {9}
+9. *: *The two of you banter for a while. It’s really nice, and you get the mess all cleaned up.* {10}
+
+10. Teacher: Good morning, everyone. {11}
+11. Everyone: *bleary eyes* {12}
+12. Teacher: I see there are once more a couple of empty seats. {13}
+13. Dawn: [Thankfully Nyx and I cleaned up after ourselves. I don’t want her to get expelled.] {14} 3
+14. Teacher: Marci August. {15}
+15. Student: Here. {16}
+16. Dawn: [I don’t have to pay attention until I hear my name. I wonder what she’s going to say about Lilly?] {17} 2
+17. Teacher: Lilly Valley isn’t here. Hm. Knowing this place, she’s probably been murdered. Pity. She was sort of tolerable. {18}
+18. Dawn: [It’s a good thing my homeroom teacher is so callous. Some of them actually care, it makes things way more complicated.] {19} 3
+19. Teacher: Dawn. Dawn. {20}
+20. Dawn: ??? {21} 8
+21. Teacher: Dawn you have to pay attention. {22}
+22. Dawn: I was. I’m just a bit tired, is all. {23}
+23. Teacher: Staying up late studying? {24}
+24. Dawn: Yeah, sure! {25}
+25. Nyx: She was helping me. I’m really bad at math. {26}
+26. Dawn: And I’m bad at German! So we were helping each other. {27}
+27. Teacher: As heartwarming as your solidarity is, you need to pay attention in class. This is a very prestigious school, after all, and you better not forget it. And Nyx, no talking unprompted. Please remember that. {28}
+28. Nyx: *smiles* {29}
+29. Teacher: Moving right along. Rose Thorn was expelled for the murder of Polly Winkle after being caught thanks to the efforts of the newspaper club. {30}
+30. *: vaguely interested murmuring* {31}
+31. Dawn: [I wonder what today will bring?] {32}
+
+32. *: Dawn, you really should pay attention in class, but instead you’re distracted by remembering how Nyx and you met. She’s really cute. You love her a lot. {33}
+
+33. *: first day in the dorm…* {34}
+34. Dawn: !!!? {35}
+35. Dawn: What are you doing? {36}
+36. Nyx: Wait, is this yours? {37}
+37. Dawn: Yes! That’s mine! {38}
+38. *: She’s eating your hamster, Dawn. That’s what’s happening.* {39}
+39. Nyx: Oh, sorry! I didn’t know it was anyone’s. {40}
+30. *: Nyx puts down your hamster back in her cage.* {31001, 31002, 31003}
+31001. Dawn: ...her name is Madame Fluffbottom. {32}
+31002. Dawn: Do you always eat hamsters you find? {33}
+31003. Dawn: Man, you’re really lucky you’re cute. {34}
+32. Nyx: That’s so cute, oh my god! {35001}
+33. Nyx: Only the ones that look tasty. {35002}
+34. Nyx: UwU ;3. {35003}
+35001. Dawn: I’m glad you think so. You’re Nyx?  {36}
+35002. Dawn: ...I can sort of understand that. {36}
+35003. Dawn: !! <3 {36}
+36. *: You really should feel more weird about this entire… situation, but your hamster is fine and your room is cute, so you just sort of end up talking. It’s nice.* {37}
