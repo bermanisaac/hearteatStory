@@ -1,4 +1,10 @@
-module Main where
+module StoryParse (
+  StoryLine,
+  Action,
+  checkContinuity,
+  listOfStories,
+  buildFullString
+) where
 
 import Text.ParserCombinators.ReadP hiding (get)
 import Text.Read hiding ((<++), get)
@@ -180,8 +186,8 @@ readLines line = handle . readMaybe $ line where
   handle Nothing = error $ "parse error on line: " ++ line
 
 
-buildfullString :: [StoryLine] -> String
-buildfullString myLines = csHeader ++
+buildFullString :: [StoryLine] -> String
+buildFullString myLines = csHeader ++
                           "    public static string[] allNames = " ++ myShowList (listOfNames myLines) ++ ";\n" ++
                           showAllLines myLines ++
                           "    public static void initStory() {\n" ++
@@ -215,10 +221,10 @@ checkContinuity lines = runIdentity $ execStateT (checkLines lines) [] where
   actionToState (Enter person) = enter person
   actionToState (Exit person) = exit person
 
-main :: IO ()
-main = do
-  allLines <- getContents
-  let list = listOfStories allLines
-  let leftInScene = checkContinuity list
-  putStr $ buildfullString list
-  hPutStrLn stderr $ "Left in scene: " ++ (unwords leftInScene)
+-- main :: IO ()
+-- main = do
+--   allLines <- getContents
+--   let list = listOfStories allLines
+--   let leftInScene = checkContinuity list
+--   putStr $ buildFullString list
+--   hPutStrLn stderr $ "Left in scene: " ++ (unwords leftInScene)
