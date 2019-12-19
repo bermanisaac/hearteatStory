@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/home/isaac/.cabal/bin"
-libdir     = "/home/isaac/.cabal/lib/x86_64-linux-ghc-8.6.5/hearteatStory-0.1.0.0-inplace-fullParse"
-dynlibdir  = "/home/isaac/.cabal/lib/x86_64-linux-ghc-8.6.5"
-datadir    = "/home/isaac/.cabal/share/x86_64-linux-ghc-8.6.5/hearteatStory-0.1.0.0"
-libexecdir = "/home/isaac/.cabal/libexec/x86_64-linux-ghc-8.6.5/hearteatStory-0.1.0.0"
-sysconfdir = "/home/isaac/.cabal/etc"
+bindir     = "/home/berman/.cabal/bin"
+libdir     = "/home/berman/.cabal/lib/x86_64-linux-ghc-8.6.5/hearteatStory-0.1.0.0-inplace-fullParse"
+dynlibdir  = "/home/berman/.cabal/lib/x86_64-linux-ghc-8.6.5"
+datadir    = "/home/berman/.cabal/share/x86_64-linux-ghc-8.6.5/hearteatStory-0.1.0.0"
+libexecdir = "/home/berman/.cabal/libexec/x86_64-linux-ghc-8.6.5/hearteatStory-0.1.0.0"
+sysconfdir = "/home/berman/.cabal/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "hearteatStory_bindir") (\_ -> return bindir)

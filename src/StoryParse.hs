@@ -1,5 +1,5 @@
 module StoryParse (
-  StoryLine,
+  StoryLine (..),
   Action,
   checkContinuity,
   listOfStories,
