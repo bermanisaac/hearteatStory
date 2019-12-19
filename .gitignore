@@ -4,3 +4,6 @@ dist-newstyle
 #Compiled Haskell files
 *.hi
 *.o
+
+#This too
+Lab7
