@@ -51,11 +51,26 @@ tag t html = do
         exdent
         newline
 
+tagArgs :: String -> String -> HTML -> HTML
+tagArgs t args html = do
+    newline
+    inlineTagArgs t args $ do
+        indent
+        html
+        exdent
+        newline
+
 {- An HTML tag which does not indent its content -}
 
 inlineTag :: String -> HTML -> HTML
 inlineTag t html = do
     string $ "<" ++ t ++ ">"
+    void html
+    string $ "</" ++ t ++ ">"
+
+inlineTagArgs :: String -> String -> HTML -> HTML
+inlineTagArgs t args html = do
+    string $ "<" ++ t ++ " " ++ args ++ ">"
     void html
     string $ "</" ++ t ++ ">"
 
@@ -88,6 +103,8 @@ th    = tag "th"
 td    = tag "td"
 form  = tag "form"
 
+postForm = tagArgs "form" "action=\"/\" method=\"post\""
+
 input :: String -> String -> String -> HTML
 input ofType withName startsAs = string $ "<input type = \""
                                        ++ ofType
@@ -95,6 +112,7 @@ input ofType withName startsAs = string $ "<input type = \""
                                        ++ withName
                                        ++ "\" value = \""
                                        ++ startsAs
+                                       ++ "\">"
 
 
 -- <input type = "String" name = "question5" value = "">
