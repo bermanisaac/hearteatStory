@@ -1,0 +1,6 @@
+# cabal build folder
+dist-newstyle
+
+#Compiled Haskell files
+*.hi
+*.o
