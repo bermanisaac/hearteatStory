@@ -28,12 +28,13 @@ library StoryParse
   hs-source-dirs:      src
   default-language:    Haskell2010
 
-library Pretty
-  exposed-modules:     Pretty
-  -- other-modules:
+library HTML
+  exposed-modules:     Pretty, ToHTML, FromHTML
+  other-modules:       StoryParse
   -- other-extensions:
   build-depends:       base >=4.12 && <4.13
                      , mtl
+                     , containers
   hs-source-dirs:      src
   default-language:    Haskell2010
 
@@ -47,22 +48,16 @@ executable fullParse
   hs-source-dirs:      src
   default-language:    Haskell2010
 
-executable toHTML
-  main-is:             ToHTML.hs
-  other-modules:       StoryParse, Pretty
+executable server
+  main-is:             Server.hs
+  other-modules:       StoryParse, ToHTML, FromHTML Pretty
   -- other-extensions:
   build-depends:       base >=4.12 && <4.13
                      , mtl
                      , containers
-  hs-source-dirs:      src
-  default-language:    Haskell2010
-
-executable fromHTML
-  main-is:             fromHTML.hs
-  other-modules:       StoryParse
-  -- other-extensions:
-  build-depends:       base >=4.12 && <4.13
-                     , mtl
-                     , containers
+                     , network
+                     , regex-compat
+                     , transformers
+                     , bytestring
   hs-source-dirs:      src
   default-language:    Haskell2010

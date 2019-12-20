@@ -1,6 +1,6 @@
 module StoryParse (
-  StoryLine (..),
-  Action (..),
+  StoryLine,
+  Action,
   checkContinuity,
   listOfStories,
   buildFullString
@@ -220,3 +220,11 @@ checkContinuity lines = runIdentity $ execStateT (checkLines lines) [] where
   processActions StoryLine {} = []
   actionToState (Enter person) = enter person
   actionToState (Exit person) = exit person
+
+-- main :: IO ()
+-- main = do
+--   allLines <- getContents
+--   let list = listOfStories allLines
+--   let leftInScene = checkContinuity list
+--   putStr $ buildFullString list
+--   hPutStrLn stderr $ "Left in scene: " ++ (unwords leftInScene)

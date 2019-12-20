@@ -1,16 +1,24 @@
-module Main where
+module ToHTML (makePageA, makePageL) where
 
 import StoryParse
 import Pretty
+import FromHTML
+import System.Environment
 
 sampleLine = StoryLine 1 "Isaac" "Fuck!" [1, 1, 1] False 0
 
 main :: IO ()
 main = do
-  lines <- getContents
-  let lineList = map storyLineInput $ listOfStories lines
-  putStrLn $ render $ htmlPage lineList
+  args <- getArgs
+  case args of
+    "action":_ -> interact makePageA
+    _ -> interact makePageL
 
+makePageA :: String -> String
+makePageA = render . htmlPageAction . (map storyLineInput) . listOfStories
+
+makePageL :: String -> String
+makePageL = render . htmlPageLine . (map storyLineInput) . listOfStories
 
 storyLineInput :: StoryLine -> HTML
 storyLineInput (StoryLine id speaker line nexts _ outfit) = do
@@ -25,16 +33,41 @@ storyLineInput (StoryLine id speaker line nexts _ outfit) = do
   newline
   string "<br> <br>"
 storyLineInput (StoryEvent id actions next) = do
+  input "number" "ID" (show id)
+  tagArgs "select" "name = \"ActionType\"" $ do
+    inlineTag "option" $ string "Enter"
+    inlineTag "option" $ string "value = \"Exit\""
+  input "text" "Next" (show next)
   newline
-  string $ "Action! <br>"
+  string "<br><br>"
 
 
-htmlPage :: [HTML] -> HTML
-htmlPage inputs = html $ do
+htmlPageLine :: [HTML] -> HTML
+htmlPageLine inputs = html $ do
                     Pretty.head $ do
                         title $ string "heart(b)eat Script Service"
                     body $ do
                         h3 $ string "Lines:"
                         postForm $ do
                             sequence_ inputs
-                            string $ "<input type = \"submit\">"
+                            storyLineInput (StoryLine 0 "" "" [] False 0)
+                            newline
+                            string "<br>"
+                            string $ "<input type = \"submit\" name = \"New Line\" formaction = \"saveWithLine\">"
+                            newline
+                            string $ "<input type = \"submit\" name = \"New Action\" formaction = \"saveWithAction\">"
+
+htmlPageAction :: [HTML] -> HTML
+htmlPageAction inputs = html $ do
+                    Pretty.head $ do
+                        title $ string "heart(b)eat Script Service"
+                    body $ do
+                        h3 $ string "Lines:"
+                        postForm $ do
+                            sequence_ inputs
+                            storyLineInput (StoryEvent 0 [Enter ""] 0)
+                            newline
+                            string "<br>"
+                            string $ "<input type = \"submit\" value = \"New Line\" formaction = \"saveWithLine\">"
+                            newline
+                            string $ "<input type = \"submit\" value = \"New Action\" formaction = \"saveWithAction\">"

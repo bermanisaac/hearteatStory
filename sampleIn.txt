@@ -1,5 +1,4 @@
-1. Dawn: Good morning, Nyx! {1005} 1
-1005. Enter: {Nyx} 2
+1. Dawn: Good morning, Nyx! {2} 1
 2. Nyx: Hi! <3 {2001, 2002, 2003}
 2001. Dawn: Just remember to clean up after yourself, please? {3} 2
 2002. Dawn: What are you doing??? {301}

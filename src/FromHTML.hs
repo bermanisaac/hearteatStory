@@ -1,11 +1,8 @@
-module Main where
+module FromHTML where
 
 import StoryParse
 import Text.ParserCombinators.ReadP
 import Data.Char (isDigit, isAlphaNum, isAlpha)
-
-main :: IO ()
-main = putStrLn "yee haw"
 
 -- ID=1&Name=Dawn&Nexts=1005&Outfit=1&Line=Good+morning%2C+Nyx%21+&ID=2&Name=Nyx&Nexts=2001%2C2002%2C2003&Outfit=0&Line=Hi%21+<3+
 
@@ -14,10 +11,10 @@ removeLeadingID = tail . tail . tail
 
 parsePOST :: ReadP [StoryLine]
 parsePOST = sepBy1 parseLine (string "&ID=")
-        
+
 parseLine :: ReadP StoryLine
-parseLine = (\idnum _ name _ nexts _ artnum _ line -> 
-            StoryLine (read idnum) name (decodePercents line) 
+parseLine = (\idnum _ name _ nexts _ artnum _ line ->
+            StoryLine (read idnum) name (decodePercents line)
                 (read <$> nexts) (length nexts > 1) (read artnum))
     <$> munch1 isDigit
     <*> string "&Name="
@@ -53,4 +50,4 @@ charDict = [
     ]
 
 getLineFromPOST :: String -> [StoryLine]
-getLineFromPOST = fst . last . readP_to_S parsePOST . removeLeadingID 
+getLineFromPOST = fst . last . readP_to_S parsePOST . removeLeadingID
