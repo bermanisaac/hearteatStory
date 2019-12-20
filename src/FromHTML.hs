@@ -18,7 +18,7 @@ parseLine = (\idnum _ name _ nexts _ artnum _ line ->
                 (read <$> nexts) (length nexts > 1) (read artnum))
     <$> munch1 isDigit
     <*> string "&Name="
-    <*> munch1 isAlphaNum
+    <*> munch1 isAllowedChar
     <*> string "&Nexts="
     <*> sepBy1 (munch1 isDigit) (string "%2C")
     <*> string "&Outfit="
