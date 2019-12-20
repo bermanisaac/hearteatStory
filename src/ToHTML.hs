@@ -15,10 +15,10 @@ main = do
     _ -> interact makePageL
 
 makePageA :: String -> String
-makePageA = render . htmlPageAction . (map storyLineInput) . listOfStories
+makePageA = render . htmlPageAction . (map storyLineInput) . getLineFromPOST
 
 makePageL :: String -> String
-makePageL = render . htmlPageLine . (map storyLineInput) . listOfStories
+makePageL = render . htmlPageLine . (map storyLineInput) . getLineFromPOST
 
 storyLineInput :: StoryLine -> HTML
 storyLineInput (StoryLine id speaker line nexts _ outfit) = do
@@ -53,6 +53,7 @@ htmlPageLine inputs = html $ do
                             storyLineInput (StoryLine 0 "" "" [] False 0)
                             newline
                             string "<br>"
+                            newline
                             string $ "<input type = \"submit\" name = \"New Line\" formaction = \"saveWithLine\">"
                             newline
                             string $ "<input type = \"submit\" name = \"New Action\" formaction = \"saveWithAction\">"
@@ -68,6 +69,7 @@ htmlPageAction inputs = html $ do
                             storyLineInput (StoryEvent 0 [Enter ""] 0)
                             newline
                             string "<br>"
+                            newline
                             string $ "<input type = \"submit\" value = \"New Line\" formaction = \"saveWithLine\">"
                             newline
                             string $ "<input type = \"submit\" value = \"New Action\" formaction = \"saveWithAction\">"

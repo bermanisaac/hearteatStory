@@ -256,8 +256,12 @@ maybeParseRequestLines request@(firstLine:_) =
 -- Look up the requested file and read it into an HTTPResponse
 createResponse :: HTTPRequest -> Handle -> IO HTTPResponse
 createResponse (GetRequest "/writedialogue") _ = do
-  script <- readFile "sampleIn.txt"
+  script <- readFile "recentSave.txt"
   pure $ HTTPResponse statusOk (C.pack $ makePageL script)
+createResponse (GetRequest "/writedialogueL") h = createResponse (GetRequest "/writedialogue") h
+createResponse (GetRequest "/writedialogueA") _ = do
+  script <- readFile "recentSave.txt"
+  pure $ HTTPResponse statusOk (C.pack $ makePageA script)
 createResponse (GetRequest path) _ = do
     let filePaths = requestPathToFilePaths path
     maybeContents <- maybeReadOneFile filePaths
@@ -266,10 +270,18 @@ createResponse (GetRequest path) _ = do
             Just fileContents -> HTTPResponse statusOk fileContents
             Nothing           -> HTTPResponse statusNotFound notFoundBody
 createResponse (PostRequest actionURI bodyLength) connHandle = do
-  putStrLn $ "content length: " ++ (show bodyLength)
-  line <- replicateM bodyLength (hGetChar connHandle)
-  putStrLn line
-  createResponse (GetRequest "/") connHandle
+  body <- replicateM bodyLength (hGetChar connHandle)
+  case actionURI of
+    "saveWithLine"    -> do
+      writeFile "recentSave.txt" body
+      createResponse (GetRequest "writedialogueL") connHandle
+    "saveWithAction"  -> do
+      writeFile "recentSave.txt" body
+      createResponse (GetRequest "writedialogueA") connHandle
+    _                 ->  do
+      putStrLn $ "content length: " ++ (show bodyLength)
+      putStrLn body
+      createResponse (GetRequest "/") connHandle
 
 
 -- We'll try reading files until one succeeds.
