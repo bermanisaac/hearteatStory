@@ -10,7 +10,7 @@ removeLeadingID :: String -> String
 removeLeadingID = tail . tail . tail
 
 parsePOST :: ReadP [StoryLine]
-parsePOST = sepBy1 parseLine (string "&ID=")
+parsePOST = sepBy1 (parseLine <++ parseBlankLine) (string "&ID=")
 
 parseLine :: ReadP StoryLine
 parseLine = (\idnum _ name _ nexts _ artnum _ line ->
@@ -29,6 +29,8 @@ parseLine = (\idnum _ name _ nexts _ artnum _ line ->
     isAllowedChar = foldr (||) False . (<$> (isAlphaNum:otherChars)) . flip ($)
     otherChars = flip (==) <$> ['%','+','.','<','>','-','*','/']
 
+parseBlankLine :: ReadP StoryLine
+parseBlankLine = pure $ StoryLine (-1337) "BAD LINE" "BAD LINE" [] False 0
 
 decodePercents :: String -> String
 decodePercents [] = []
@@ -50,4 +52,4 @@ charDict = [
     ]
 
 getLineFromPOST :: String -> [StoryLine]
-getLineFromPOST = fst . last . readP_to_S parsePOST . removeLeadingID
+getLineFromPOST = init . fst . last . readP_to_S parsePOST . removeLeadingID
