@@ -6,11 +6,10 @@ import Data.Char (isDigit, isAlphaNum, isAlpha)
 
 -- ID=1&Name=Dawn&Nexts=1005&Outfit=1&Line=Good+morning%2C+Nyx%21+&ID=2&Name=Nyx&Nexts=2001%2C2002%2C2003&Outfit=0&Line=Hi%21+<3+
 
-removeLeadingID :: String -> String
-removeLeadingID = tail . tail . tail
-
 parsePOST :: ReadP [StoryLine]
-parsePOST = sepBy1 (parseLine <++ parseBlankLine) (string "&ID=")
+parsePOST =   string "ID="
+            *> sepBy (parseLine) (string "&ID=") <*
+              optional (string "&New+" *> munch (const True))
 
 parseLine :: ReadP StoryLine
 parseLine = (\idnum _ name _ nexts _ artnum _ line ->
@@ -18,16 +17,16 @@ parseLine = (\idnum _ name _ nexts _ artnum _ line ->
                 (read <$> nexts) (length nexts > 1) (read artnum))
     <$> munch1 isDigit
     <*> string "&Name="
-    <*> munch1 isAllowedChar
+    <*> munch  isAllowedChar
     <*> string "&Nexts="
     <*> sepBy1 (munch1 isDigit) (string "%2C")
     <*> string "&Outfit="
     <*> munch1 isDigit
     <*> string "&Line="
-    <*> munch1 isAllowedChar
+    <*> munch isAllowedChar
         where
     isAllowedChar = foldr (||) False . (<$> (isAlphaNum:otherChars)) . flip ($)
-    otherChars = flip (==) <$> ['%','+','.','<','>','-','*','/']
+    otherChars = flip (==) <$> ['%','+','.','<','>','-','*','/', '(', ')']
 
 parseBlankLine :: ReadP StoryLine
 parseBlankLine = pure $ StoryLine (-1337) "BAD LINE" "BAD LINE" [] False 0
@@ -51,5 +50,9 @@ charDict = [
     ("5B",'['),("5D",']')
     ]
 
-getLineFromPOST :: String -> [StoryLine]
-getLineFromPOST = init . fst . last . readP_to_S parsePOST . removeLeadingID
+readPOST :: String -> [StoryLine]
+readPOST str = let allParses = map fst . filter ((== "") . snd) . readP_to_S parsePOST $ str in
+           case length allParses of
+             0 -> error $ "error: no parse"
+             1 -> concat allParses
+             _ -> error $ "error: ambiguous parse"

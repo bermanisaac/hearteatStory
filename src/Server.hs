@@ -257,6 +257,7 @@ maybeParseRequestLines request@(firstLine:_) =
 createResponse :: HTTPRequest -> Handle -> IO HTTPResponse
 createResponse (GetRequest "/writedialogue") _ = do
   script <- readFile "recentSave.txt"
+  putStrLn $ "read file: " ++ script
   pure $ HTTPResponse statusOk (C.pack $ makePageL script)
 createResponse (GetRequest "/writedialogueL") h = createResponse (GetRequest "/writedialogue") h
 createResponse (GetRequest "/writedialogueA") _ = do
@@ -271,16 +272,16 @@ createResponse (GetRequest path) _ = do
             Nothing           -> HTTPResponse statusNotFound notFoundBody
 createResponse (PostRequest actionURI bodyLength) connHandle = do
   body <- replicateM bodyLength (hGetChar connHandle)
+  putStrLn body
   case actionURI of
-    "saveWithLine"    -> do
+    "/saveWithLine"    -> do
       writeFile "recentSave.txt" body
-      createResponse (GetRequest "writedialogueL") connHandle
-    "saveWithAction"  -> do
+      createResponse (GetRequest "/writedialogueL") connHandle
+    "/saveWithAction"  -> do
       writeFile "recentSave.txt" body
-      createResponse (GetRequest "writedialogueA") connHandle
+      createResponse (GetRequest "/writedialogueA") connHandle
     _                 ->  do
       putStrLn $ "content length: " ++ (show bodyLength)
-      putStrLn body
       createResponse (GetRequest "/") connHandle
 
 

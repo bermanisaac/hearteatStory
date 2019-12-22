@@ -15,10 +15,10 @@ main = do
     _ -> interact makePageL
 
 makePageA :: String -> String
-makePageA = render . htmlPageAction . (map storyLineInput) . getLineFromPOST
+makePageA = render . htmlPageAction . (map storyLineInput) . readPOST
 
 makePageL :: String -> String
-makePageL = render . htmlPageLine . (map storyLineInput) . getLineFromPOST
+makePageL = render . htmlPageLine . (map storyLineInput) . readPOST
 
 storyLineInput :: StoryLine -> HTML
 storyLineInput (StoryLine id speaker line nexts _ outfit) = do
@@ -50,7 +50,7 @@ htmlPageLine inputs = html $ do
                         h3 $ string "Lines:"
                         postForm $ do
                             sequence_ inputs
-                            storyLineInput (StoryLine 0 "" "" [] False 0)
+                            storyLineInput (StoryLine 0 "" "" [0] False 0)
                             newline
                             string "<br>"
                             newline
