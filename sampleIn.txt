@@ -39,3 +39,21 @@
 30. *: vaguely interested murmuring* {31}
 31. Dawn: [I wonder what today will bring?] {32}
 32. *: You really should pay attention in class, but instead you’re distracted by remembering how Nyx and you met. She’s really cute. You love her a lot. {1}
+33. *: first day in the dorm…* {34}
+34. Dawn: !!!? {35}
+35. Dawn: What are you doing? {36}
+36. Nyx: Wait, is this yours? {37}
+37. Dawn: Yes! That’s mine! {38}
+38. *: She’s eating your hamster, Dawn. That’s what’s happening.* {39}
+39. Nyx: Oh, sorry! I didn’t know it was anyone’s. {40}
+30. *: Nyx puts down your hamster back in her cage.* {31001, 31002, 31003}
+31001. Dawn: ...her name is Madame Fluffbottom. {32}
+31002. Dawn: Do you always eat hamsters you find? {33}
+31003. Dawn: Man, you’re really lucky you’re cute. {34}
+32. Nyx: That’s so cute, oh my god! {35001}
+33. Nyx: Only the ones that look tasty. {35002}
+34. Nyx: UwU ;3. {35003}
+35001. Dawn: I’m glad you think so. You’re Nyx?  {36}
+35002. Dawn: ...I can sort of understand that. {36}
+35003. Dawn: !! <3 {36}
+36. *: You really should feel more weird about this entire… situation, but your hamster is fine and your room is cute, so you just sort of end up talking. It’s nice.* {37}

@@ -8,7 +8,7 @@ import Data.Char (isDigit, isAlphaNum, isAlpha)
 
 parsePOST :: ReadP [StoryLine]
 parsePOST =   string "ID="
-            *> sepBy (parseLine) (string "&ID=") <*
+            *> sepBy (parseLine <++ parseAction) (string "&ID=") <*
               optional (string "&New+" *> munch (const True))
 
 parseLine :: ReadP StoryLine
@@ -33,7 +33,7 @@ parseAction :: ReadP StoryLine
 parseAction = (\idnum _ actionType _ name _ next -> StoryEvent (read idnum) [(actionType (decodePercents name))] (read next))
   <$> munch1 isDigit
   <*> string "&ActionType="
-  <*> ((Enter <* string "Enter") <++ (Exit <* string "Exit"))
+  <*> ((pure Enter <* string "Enter") <++ (pure Exit <* string "Exit"))
   <*> string "&Name="
   <*> munch isAllowedChar
   <*> string "&Next="
