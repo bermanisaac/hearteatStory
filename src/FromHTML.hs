@@ -1,4 +1,4 @@
-module FromHTML where
+module FromHTML (readPOST) where
 
 import StoryParse
 import Text.ParserCombinators.ReadP
@@ -25,8 +25,19 @@ parseLine = (\idnum _ name _ nexts _ artnum _ line ->
     <*> string "&Line="
     <*> munch isAllowedChar
         where
-    isAllowedChar = foldr (||) False . (<$> (isAlphaNum:otherChars)) . flip ($)
-    otherChars = flip (==) <$> ['%','+','.','<','>','-','*','/', '(', ')']
+
+isAllowedChar = foldr (||) False . (<$> (isAlphaNum:otherChars)) . flip ($)
+otherChars = flip (==) <$> ['%','+','.','<','>','-','*','/', '(', ')']
+
+parseAction :: ReadP StoryLine
+parseAction = (\idnum _ actionType _ name _ next -> StoryEvent (read idnum) [(actionType (decodePercents name))] (read next))
+  <$> munch1 isDigit
+  <*> string "&ActionType="
+  <*> ((Enter <* string "Enter") <++ (Exit <* string "Exit"))
+  <*> string "&Name="
+  <*> munch isAllowedChar
+  <*> string "&Next="
+  <*> munch1 isDigit
 
 parseBlankLine :: ReadP StoryLine
 parseBlankLine = pure $ StoryLine (-1337) "BAD LINE" "BAD LINE" [] False 0

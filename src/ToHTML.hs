@@ -36,11 +36,14 @@ storyLineInput (StoryEvent id actions next) = do
   input "number" "ID" (show id)
   tagArgs "select" "name = \"ActionType\"" $ do
     inlineTag "option" $ string "Enter"
-    inlineTag "option" $ string "value = \"Exit\""
-  input "text" "Next" (show next)
+    inlineTag "option" $ string "Exit"
+  input "text" "Name" (myShow actions)
+  input "number" "Next" (show next)
   newline
   string "<br><br>"
 
+myShow ((Enter a):as) = a
+mySHow ((Exit a):as) = a
 
 htmlPageLine :: [HTML] -> HTML
 htmlPageLine inputs = html $ do
@@ -54,9 +57,9 @@ htmlPageLine inputs = html $ do
                             newline
                             string "<br>"
                             newline
-                            string $ "<input type = \"submit\" name = \"New Line\" formaction = \"saveWithLine\">"
+                            string $ "<input type = \"submit\" value = \"New Line\" formaction = \"saveWithLine\">"
                             newline
-                            string $ "<input type = \"submit\" name = \"New Action\" formaction = \"saveWithAction\">"
+                            string $ "<input type = \"submit\" value = \"New Action\" formaction = \"saveWithAction\">"
 
 htmlPageAction :: [HTML] -> HTML
 htmlPageAction inputs = html $ do
