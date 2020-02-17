@@ -20,7 +20,7 @@ import           ToHTML
 
 
 defaultPortNumber :: Socket.PortNumber
-defaultPortNumber = 80
+defaultPortNumber = 1123
 
 htmlFolder :: String
 htmlFolder = "public_html"
